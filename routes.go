@@ -28,7 +28,7 @@ func NewRouter() *mux.Router {
 	for _, route := range routes {
 		router.Methods(route.Method).Path(route.Pattern).Name(route.Name).Handler(route.HandlerFunc)
 	}
+	router.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	router.NotFoundHandler = http.HandlerFunc(notFound)
-
 	return router
 }
